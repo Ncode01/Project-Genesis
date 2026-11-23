@@ -3,7 +3,7 @@ import type { GenesisApi } from '../preload/ipc.js';
 
 declare global {
   interface Window {
-    genesis: GenesisApi;
+    genesis?: GenesisApi;
   }
 }
 

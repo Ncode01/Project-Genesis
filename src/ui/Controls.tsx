@@ -11,19 +11,21 @@ const BTN: React.CSSProperties = {
   cursor: 'pointer',
 };
 
-export function Controls({ tick }: { tick: number }): React.JSX.Element {
-  const [speed, setSpeed] = useState(10);
-  const send = (c: SimCommand): void => void window.genesis.send(c);
+export function Controls({ tick, enabled = true }: { tick: number; enabled?: boolean }): React.JSX.Element {
+  const [speed, setSpeed] = useState(1);
+  const send = (c: SimCommand): void => {
+    if (enabled && window.genesis) void window.genesis.send(c);
+  };
 
   return (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-      <button style={BTN} onClick={() => send({ type: 'play' })}>
+      <button style={BTN} disabled={!enabled} onClick={() => send({ type: 'play' })}>
         ▶ Play
       </button>
-      <button style={BTN} onClick={() => send({ type: 'pause' })}>
+      <button style={BTN} disabled={!enabled} onClick={() => send({ type: 'pause' })}>
         ⏸ Pause
       </button>
-      <button style={BTN} onClick={() => send({ type: 'step' })}>
+      <button style={BTN} disabled={!enabled} onClick={() => send({ type: 'step' })}>
         ⏭ Step
       </button>
       <label style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
@@ -31,8 +33,9 @@ export function Controls({ tick }: { tick: number }): React.JSX.Element {
         <input
           type="range"
           min={1}
-          max={60}
+          max={5}
           value={speed}
+          disabled={!enabled}
           onChange={(e) => {
             const tps = Number(e.target.value);
             setSpeed(tps);
@@ -41,10 +44,10 @@ export function Controls({ tick }: { tick: number }): React.JSX.Element {
         />
         {speed}/s
       </label>
-      <button style={BTN} onClick={() => send({ type: 'reset' })}>
+      <button style={BTN} disabled={!enabled} onClick={() => send({ type: 'reset' })}>
         ↺ Reset
       </button>
-      <button style={BTN} onClick={() => send({ type: 'fork', atTick: tick })}>
+      <button style={BTN} disabled={!enabled} onClick={() => send({ type: 'fork', atTick: tick })}>
         ⑂ Fork @ {tick}
       </button>
     </div>

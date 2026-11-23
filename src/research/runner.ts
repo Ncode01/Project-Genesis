@@ -30,7 +30,7 @@ import { cpus } from 'node:os';
 import { Worker } from 'node:worker_threads';
 import { execSync } from 'node:child_process';
 import * as engineConfig from '../engine/config.js';
-import { AnthropicProvider, OpenAIProvider, assertAffordable, envKeyProvider, estimateRun, formatEstimate, MockProvider, type LlmProvider } from '../agents/llm/index.js';
+import { AnthropicProvider, OpenAIProvider, OllamaProvider, assertAffordable, envKeyProvider, estimateRun, formatEstimate, MockProvider, type LlmProvider } from '../agents/llm/index.js';
 import { runLlm } from '../orchestrator/llmHeadless.js';
 import type { DiagnosticReport } from '../orchestrator/diagnostics.js';
 import { botRunRecord, buildRunsCsv, buildAgentsCsv, buildEventsJsonl, buildSummaryMd, buildCompareMd, type RunMeta, type RunRecord } from './analysis.js';
@@ -106,12 +106,14 @@ function makeProvider(providerName: string, model: string): LlmProvider {
       return new AnthropicProvider({ model, keys: envKeyProvider('ANTHROPIC_API_KEY') });
     case 'openai':
       return new OpenAIProvider({ model, keys: envKeyProvider('OPENAI_API_KEY') });
+    case 'ollama':
+      return new OllamaProvider({ model });
     // A full research run against the mock: costs $0, spends no tokens, and exercises the entire
     // pipeline end to end. This is how you shake out a batch before paying for one.
     case 'mock':
       return new MockProvider(() => '{"action":{"type":"REST"}}', model);
     default:
-      throw new Error(`unknown provider '${providerName}' — this slice ships 'anthropic', 'openai', and 'mock'. (Google/Ollama are later Phase 4: add a sibling of src/agents/llm/anthropic.ts.)`);
+      throw new Error(`unknown provider '${providerName}' — supported providers are 'anthropic', 'openai', 'ollama', and 'mock'.`);
   }
 }
 

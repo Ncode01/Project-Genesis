@@ -1,0 +1,20 @@
+- generic [ref=e3]:
+  - heading "GENESIS" [level=1] [ref=e4]
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - text: tick
+      - strong [ref=e7]: "0"
+    - generic [ref=e8]: alive 0
+    - generic [ref=e9]: dead 0
+  - status [ref=e10]: "Browser preview mode: the Electron simulation bridge is unavailable, so controls are disabled."
+  - generic [ref=e11]:
+    - button "▶ Play" [disabled] [ref=e12] [cursor=pointer]
+    - button "⏸ Pause" [disabled] [ref=e13] [cursor=pointer]
+    - button "⏭ Step" [disabled] [ref=e14] [cursor=pointer]
+    - generic [ref=e15]:
+      - text: Speed
+      - slider "Speed 10/s" [disabled] [ref=e16]: "10"
+      - text: 10/s
+    - button "↺ Reset" [disabled] [ref=e17] [cursor=pointer]
+    - button "⑂ Fork @ 0" [disabled] [ref=e18] [cursor=pointer]
+  - paragraph [ref=e20]: Phase 0/1 — heuristic bots, no LLM. Ore (gold, north) is useless by design; grain (yellow, east) is food, water (blue, south) is drink. Red agents are starving.

@@ -39,6 +39,8 @@ export const PRICES: Record<string, ModelPrice> = {
   // The test double is free. Listed explicitly so the mock path exercises the real pricing code
   // (rather than bypassing it) while costing exactly $0.
   mock: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+  // Local inference has no metered API cost. Hardware/electricity costs are outside this ledger.
+  'qwen3.5:2b-q4_K_M': { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
 };
 
 export function priceOf(model: string): ModelPrice {

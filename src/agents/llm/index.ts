@@ -2,6 +2,7 @@
 // src/agents/ reaches into the individual modules.
 export { AnthropicProvider, DEFAULT_MODEL, anthropicRequestParams } from './anthropic.js';
 export { OpenAIProvider, DEFAULT_OPENAI_MODEL, openaiRequestParams } from './openai.js';
+export { OllamaProvider, DEFAULT_OLLAMA_MODEL } from './ollama.js';
 export { DEFAULT_RETRY, NO_RETRY, isRetryable, isRetryableStatus, withRetry, type RetryPolicy, type Sleep } from './retry.js';
 export { assertAffordable, BudgetRefused, CostMeter, estimateRun, formatEstimate, type Estimate, type EstimateInput } from './budget.js';
 export { envKeyProvider, literalKeyProvider, MissingKey, type KeyProvider } from './keychain.js';
